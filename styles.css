@@ -1,0 +1,465 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Background Container */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Floating Elements Animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(10deg);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(15px);
+    }
+}
+
+.floating-element {
+    position: absolute;
+    opacity: 0.15;
+    font-size: 80px;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+}
+
+.floating-element.rock {
+    animation: float 7s ease-in-out infinite;
+}
+
+.floating-element.paper {
+    animation: float 8s ease-in-out infinite;
+}
+
+.floating-element.scissors {
+    animation: float 6s ease-in-out infinite, sway 4s ease-in-out infinite;
+}
+
+.floating-element.rock::before {
+    content: '🪨';
+}
+
+.floating-element.paper::before {
+    content: '📄';
+}
+
+.floating-element.scissors::before {
+    content: '✂️';
+}
+
+/* Paper Fold Effect */
+@keyframes paperFold {
+    0%, 100% {
+        transform: rotateY(0deg) rotateX(0deg);
+    }
+    50% {
+        transform: rotateY(15deg) rotateX(5deg);
+    }
+}
+
+.paper-fold {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    opacity: 0.1;
+    animation: paperFold 5s ease-in-out infinite;
+    perspective: 1000px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.paper-fold::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    transform: rotateX(45deg);
+    transform-origin: bottom;
+}
+
+/* Game Container */
+.game-container {
+    position: relative;
+    z-index: 10;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Score Board */
+.score-board {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 30px;
+    gap: 30px;
+}
+
+.score-item {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    color: white;
+    flex: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.score-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.score-item h2 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.score-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #fff, #f0f0f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Game Status */
+.game-status {
+    text-align: center;
+    margin-bottom: 30px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.result-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    min-height: 35px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.game-message {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 5px;
+    min-height: 25px;
+}
+
+/* Choices Display */
+.choices-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.choice-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    color: white;
+    min-width: 140px;
+    transition: all 0.3s ease;
+}
+
+.choice-box h3 {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.choice-icon {
+    font-size: 3rem;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: choiceAppear 0.4s ease;
+}
+
+@keyframes choiceAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.vs-text {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+/* Buttons Container */
+.buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.choice-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.choice-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.choice-btn:hover::before {
+    left: 100%;
+}
+
+.choice-btn:active {
+    transform: scale(0.95);
+}
+
+.icon {
+    font-size: 2rem;
+}
+
+.text {
+    font-size: 0.9rem;
+}
+
+.rock-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.rock-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+.paper-btn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.paper-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(245, 87, 108, 0.4);
+}
+
+.scissors-btn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.scissors-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(79, 172, 254, 0.4);
+}
+
+/* Reset Button */
+.reset-btn {
+    padding: 12px 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid white;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(10px);
+}
+
+.reset-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.reset-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .score-board {
+        flex-direction: column;
+        max-width: 300px;
+        gap: 15px;
+    }
+
+    .choices-display {
+        gap: 20px;
+    }
+
+    .choice-btn {
+        padding: 15px 20px;
+    }
+
+    .icon {
+        font-size: 1.5rem;
+    }
+
+    .floating-element {
+        font-size: 50px;
+    }
+
+    .paper-fold {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .choice-btn {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+
+    .icon {
+        font-size: 1.2rem;
+    }
+
+    .choice-icon {
+        font-size: 2rem;
+    }
+
+    .result-text {
+        font-size: 1.4rem;
+    }
+}
