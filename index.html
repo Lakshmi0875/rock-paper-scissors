@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-container">
+        <!-- Animated Background Elements -->
+        <div class="floating-element rock" style="top: 10%; left: 5%;"></div>
+        <div class="floating-element paper" style="top: 15%; right: 8%;"></div>
+        <div class="floating-element scissors" style="top: 30%; left: 15%;"></div>
+        <div class="floating-element rock" style="bottom: 20%; right: 10%;"></div>
+        <div class="floating-element paper" style="bottom: 15%; left: 10%;"></div>
+        <div class="floating-element scissors" style="bottom: 30%; right: 15%;"></div>
+        <div class="paper-fold" style="top: 5%; left: 50%;"></div>
+        <div class="paper-fold" style="top: 40%; right: 10%;"></div>
+        <div class="paper-fold" style="bottom: 10%; left: 5%;"></div>
+    </div>
+
+    <div class="game-container">
+        <header>
+            <h1>✋ Rock Paper Scissors ✌️</h1>
+            <p class="subtitle">Make your choice wisely</p>
+        </header>
+
+        <!-- Score Board -->
+        <div class="score-board">
+            <div class="score-item">
+                <h2>Your Score</h2>
+                <p id="playerScore" class="score-number">0</p>
+            </div>
+            <div class="score-item">
+                <h2>Computer Score</h2>
+                <p id="computerScore" class="score-number">0</p>
+            </div>
+        </div>
+
+        <!-- Game Status -->
+        <div class="game-status">
+            <p id="result" class="result-text">Choose your move!</p>
+            <p id="gameMessage" class="game-message"></p>
+        </div>
+
+        <!-- Choices Display -->
+        <div class="choices-display">
+            <div class="choice-box">
+                <h3>Your Choice</h3>
+                <div id="playerChoice" class="choice-icon">👤</div>
+            </div>
+            <div class="vs-text">VS</div>
+            <div class="choice-box">
+                <h3>Computer Choice</h3>
+                <div id="computerChoice" class="choice-icon">🤖</div>
+            </div>
+        </div>
+
+        <!-- Game Buttons -->
+        <div class="buttons-container">
+            <button class="choice-btn rock-btn" data-choice="rock">
+                <span class="icon">🪨</span>
+                <span class="text">Rock</span>
+            </button>
+            <button class="choice-btn paper-btn" data-choice="paper">
+                <span class="icon">📄</span>
+                <span class="text">Paper</span>
+            </button>
+            <button class="choice-btn scissors-btn" data-choice="scissors">
+                <span class="icon">✂️</span>
+                <span class="text">Scissors</span>
+            </button>
+        </div>
+
+        <!-- Reset Button -->
+        <button id="resetBtn" class="reset-btn">Reset Game</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
